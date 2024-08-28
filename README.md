@@ -15,7 +15,8 @@ Social, Genetic and Behavioural Psychiatry Centre, Institute of Psychiatry, Psyc
 ## Figures
 
 [Figure 1. Genome-wide associations](https://chrisraynerr.github.io/MoBa_vQTL/) <br/>
-[Figure 2. Phenome-wide associations](<https://chrisraynerr.github.io/MoBa_vQTL/>) <br/>
+[Figure 2. Phenome-wide associations](<https://chrisraynerr.github.io/MoBa_vQTL/Figures/Figure_2.html>) <br/>
+[Figure 3. Heritability](<https://chrisraynerr.github.io/MoBa_vQTL/Figures/Figure_3.html>) <br/>
 
 ## Supplements
 

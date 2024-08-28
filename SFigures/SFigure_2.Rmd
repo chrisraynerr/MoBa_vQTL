@@ -1,0 +1,164 @@
+---
+title: "S.Figure 2"
+output: 
+  html_document:
+    toc: false
+    code_folding: hide
+mainfont: Helvetica
+---
+
+```{css Visuals, include = F, echo = F, eval = T} 
+
+.main-container {
+  max-width: 2000px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+pre {
+  max-height: 2000px !important;
+  overflow-y: auto !important;
+  overflow-x: scroll !important;
+}
+.nobullet li {
+  list-style-type: none;
+}
+.table {
+  max-width: 1600px;
+}
+.table.center {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+```
+
+```{r,include=F}
+remove(list = ls())
+```
+
+```{r setup, include=F}
+
+knitr::opts_chunk$set(
+  eval=T,echo=F,include=T,message=F,warning=F,fig.width=12,
+  fig.height=6,fig.fullwidth=T,fig.align="center"
+)
+
+packages <- c(
+  "DT","tidyverse","polycor","colorspace","summarytools",
+  "arsenal","psych","data.table","dplyr","knitr","ggrepel",
+  "directlabels","stringr"
+  )
+
+installed_packages <- packages %in% rownames(installed.packages())
+if (any(installed_packages == FALSE)) {
+  install.packages(packages[!installed_packages])
+}
+# Load all listed packages
+suppressPackageStartupMessages(invisible(lapply(packages, library, character.only = TRUE)))
+
+excl <- c(
+  "IcqFull","CbclFull","EasFull","CfqFull","ItseaFull","ScqFull","SdqFull","CccFull",
+  "SprakFull","NhpicFull","RsdbdFull","PeqFull","SbFull","SclFull","SppaFull","CbclAdhd"
+)
+```
+
+# Phenotypic correlations (A) across trait levels [factor scores] and (B) trait variability [quantile integrted rank scores] {.tabset}
+
+_Phenotypic correlations (Pearson's r) were estimated between all pairs of factor scores (A) and all pairs of quantile integrated rank scores (B)._
+
+```{r Load correlation tables and plot, warnings=F}
+
+Paths  <- list.files(path="~/Dropbox/Projects/MoBa_vQTL/Results",pattern="CorTab",full.names=T)
+
+freadCor <- function(x){
+  Tab    <- fread(x)
+  if(grepl("_vPhe",basename(x))){
+    Tab$Analysis<-"QRS"}else{Tab$Analysis<-"FS"}
+  Tab    <- Tab %>%
+    mutate(Var1=str_replace_all(Var1,"_"," ")) %>% 
+    mutate(Var2=str_replace_all(Var2,"_"," ")) %>% 
+    mutate(absZ=round(abs(r/se),2)) %>% 
+    mutate(r=round(r,3),se=round(se,3))
+  return(Tab)
+}
+
+CorTabs  <- lapply(Paths,freadCor)
+x <- CorTabs[[1]]
+Cormatly <- function(x){
+  
+  Cor <- x %>% select(Var1,Var2,r)%>%#filter(Var1!=Var2) %>% 
+    pivot_wider(names_from=Var2,values_from=r)%>%column_to_rownames("Var1") %>% 
+    as.matrix(.) %>% rbind(rep(0,ncol(.)),.) %>% cbind(.,rep(0,nrow(.))) %>% 
+    as.data.frame() %>% mutate(across(everything(),~replace_na(.,0))) %>% as.matrix()
+  diag(Cor) <- 1
+  rownames(Cor)[1]<- colnames(Cor)[1];colnames(Cor)[ncol(Cor)]<- rownames(Cor)[nrow(Cor)]
+  Cor <- Cor%>%Matrix::forceSymmetric(.,"L") %>% as.matrix(.)
+  diag(Cor) <- NA
+
+  Err  <- x %>% select(Var1,Var2,se)%>%#filter(Var1!=Var2) %>%
+    pivot_wider(names_from=Var2,values_from=se)%>%column_to_rownames("Var1") %>% 
+    as.matrix(.) %>% rbind(rep(0,ncol(.)),.) %>% cbind(.,rep(0,nrow(.))) %>% 
+    as.data.frame() %>% mutate(across(everything(),~replace_na(.,0))) %>% as.matrix()
+  diag(Err) <- 1
+  rownames(Err)[1]<- colnames(Err)[1];colnames(Err)[ncol(Err)]<- rownames(Err)[nrow(Err)]
+  Err <- Err%>%Matrix::forceSymmetric(.,"L") %>% as.matrix(.)
+  diag(Err) <- NA
+  
+  Zsc  <- x %>% select(Var1,Var2,absZ)%>%#filter(Var1!=Var2) %>%
+    pivot_wider(names_from=Var2,values_from=absZ)%>%column_to_rownames("Var1")%>% 
+    as.matrix(.) %>% rbind(rep(0,ncol(.)),.) %>% cbind(.,rep(0,nrow(.))) %>% 
+    as.data.frame() %>% mutate(across(everything(),~replace_na(.,0))) %>% as.matrix()
+  diag(Zsc) <- 1
+  rownames(Zsc)[1]<- colnames(Zsc)[1];colnames(Zsc)[ncol(Zsc)]<- rownames(Zsc)[nrow(Zsc)]
+  Zsc <- Zsc%>%Matrix::forceSymmetric(.,"L") %>% as.matrix(.)
+  diag(Zsc) <- NA
+  
+  CorMat <- heatmaply::heatmaply_cor(
+    as.data.frame(Cor),node_type="scatter",point_size_mat=Zsc,
+    point_size_name="|Z|",label_names=c("x","y","r"),
+    showticklabels=c(T,T),fontsize_col=6,fontsize_row=6,grid_size=0.001,
+    dendrogram="both",subplot_heights=c(0.04, 0.96),subplot_widths=c(0.94,0.06),
+    hide_colorbar=T
+    )
+  CorMat$height<-nrow(Cor)*13;CorMat$width<-nrow(Cor)*13
+  CorMat$x$data[[4]]$marker$size<-(CorMat$x$data[[4]]$marker$size/2.5)
+  return(CorMat)
+}
+
+CorMats <- lapply(CorTabs,Cormatly)
+
+CorTab  <- do.call(what="bind_rows",args=CorTabs)
+# CorTab <- CorTab %>% distinct(r,se,p,n,absZ)
+fwrite(CorTab,"~/Dropbox/Projects/MoBa_vQTL/Results/S.Table3_Cors.csv")
+
+```
+
+## A Factor scores
+```{r View factor score correlation plot, warnings=F}
+CorMats[[1]]
+
+datatable(
+  CorTabs[[1]] %>% select(Var1,Var2,r,SE=se,`|Z|`=absZ,P=p,N=n),
+  filter='bottom',extensions='Buttons',rownames=F,
+  options=list(
+    dom='lfrtiBp',buttons=c('csv'),
+    searching=F,pageLength=10,lengthMenu=list(c(10,-1),c('10','All')),scrollX = T,
+    columnDefs=list(list(className='dt-left',targets="_all"))
+    ))
+
+```
+
+## B Quantile integrated ranks scores
+```{r View quantile rank score correlation plot, warnings=F}
+CorMats[[2]]
+
+datatable(
+  CorTabs[[2]] %>% select(Var1,Var2,r,SE=se,`|Z|`=absZ,P=p),
+  filter='bottom',extensions='Buttons',rownames=F,
+  options=list(
+    dom='lfrtiBp',buttons=c('csv'),
+    searching=F,pageLength=10,lengthMenu=list(c(10,-1),c('10','All')),scrollX = T,
+    columnDefs=list(list(className='dt-left',targets="_all"))
+    ))
+```
+

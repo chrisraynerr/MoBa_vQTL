@@ -1,0 +1,173 @@
+---
+title: "Figure 2"
+output: 
+  html_document:
+    toc: false
+    code_folding: hide
+mainfont: Helvetica
+---
+
+```{css Visuals, include = F, echo = F, eval = T} 
+
+.main-container {
+  max-width: 2000px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+pre {
+  max-height: 2000px !important;
+  overflow-y: auto !important;
+  overflow-x: scroll !important;
+}
+.nobullet li {
+  list-style-type: none;
+}
+.table {
+  max-width: 1600px;
+}
+.table.center {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+```
+
+```{r setup, include=F}
+
+knitr::opts_chunk$set(
+  eval=T,echo=F,include=T,message=F,warning=F,fig.width=12,
+  fig.height=6,fig.fullwidth=T,fig.align="center"
+)
+
+packages <- c(
+  "DT","tidyverse","polycor","colorspace","summarytools",
+  "arsenal","psych","data.table","dplyr","knitr","ggrepel",
+  "directlabels","stringr"
+  )
+
+installed_packages <- packages %in% rownames(installed.packages())
+if (any(installed_packages == FALSE)) {
+  install.packages(packages[!installed_packages])
+}
+# Load all listed packages
+suppressPackageStartupMessages(invisible(lapply(packages, library, character.only = TRUE)))
+
+```
+
+```{r, fig.height=4,fig.width=8,warning=F,eval=T}
+
+PheWasPaths <- list.files(path="~/Dropbox/Projects/MoBa_vQTL/Results",pattern="PheWas",full.names=T)
+
+freadPheWas <- function(x){
+  Tab  <- fread(x)
+  if(grepl("_v",basename(x))){
+    Tab$MoBaAnalysis<-"vQTL"}else{Tab$MoBaAnalysis<-"mQTL"}
+  if(grepl("Anth",basename(x))){
+    Tab$MoBaTrait<-paste0(Tab$MoBaTrait,Tab$Age)}
+  Tab  <- Tab %>% 
+    mutate(GwasP=ifelse(MoBaAnalysis=="mQTL",mP,vP)) %>% 
+    arrange(PheWasP) %>% distinct(PheWasTrait,MoBaTrait,.keep_all=T) %>% 
+    mutate(Label=str_replace_all(PheWasTrait,"\\s*\\([^\\)]+\\)","")) %>% 
+    mutate(Label=str_replace_all(Label,"[[:punct:]]","")) %>% 
+    mutate(Label=str_to_title(Label)) %>% 
+    mutate(Label=str_replace_all(Label," ","")) %>% 
+    mutate(Label=str_replace_all(Label, "CellCount", "Count")) %>% 
+    distinct(Label,MoBaTrait,.keep_all=T) %>% 
+    select(Label,PheWasTrait,MoBaTrait,MoBaAnalysis,GwasP,PheWasP,rsid) %>% distinct() %>% 
+    mutate(MoBaTrait=str_replace_all(MoBaTrait, "C_", " ")) %>% 
+    mutate(MoBaTrait=str_replace_all(MoBaTrait, "Full", "")) %>% 
+    mutate(MoBaTrait=str_replace_all(MoBaTrait, "([a-z])([A-Z])", "\\1 \\2")) %>% 
+    mutate(MoBaTrait=str_replace_all(MoBaTrait, "([a-z])([0-9])", "\\1_\\2")) %>% 
+    mutate(MoBaTrait=str_replace_all(MoBaTrait, "([a-z]) ([0-9])", "\\1_\\2")) %>% 
+    separate(MoBaTrait,c("MoBaTrait","Age"),"_") %>% 
+    mutate(Age = factor(Age,
+      levels=c("6mo","18mo","03yo","3yr","05yo","5yr","07yo","08yo","8yr","14yo","14yr"),
+      labels=c("6m","18m","3y","3y","5y","5y","7y","8y","8y","14y","14y")
+      )) %>% 
+    mutate(MoBaTrait2=MoBaTrait) %>% 
+    separate(MoBaTrait2,c("Scale","Subscale")," ") %>% 
+    select(MoBaTrait,Scale,Subscale,everything()) %>% 
+    mutate(Scale=factor(Scale,levels=c("Asq","Eas","Icq","Itsea","Rsdbd","Scq","Smfq","Sppa","Sprak","Height","Weight")))     
+  return(Tab)
+}
+
+PheWasTabs <- lapply(PheWasPaths,freadPheWas)
+PheWasTabs <- do.call(args=PheWasTabs,what="bind_rows")
+PheWasTab  <- datatable(PheWasTabs)
+
+PheWasPlot <- 
+  ggplot(
+    PheWasTabs,
+    aes(y=-log10(PheWasP),x=Age,shape=MoBaAnalysis,size=-log10(GwasP),colour=Age,
+        label1=MoBaTrait,label2=PheWasTrait))+ #colour=-log10(GwasP)))+ 
+    geom_point(position=position_jitter(seed=1),show.legend=F)+
+    theme_minimal()+
+    scale_colour_viridis_d(begin=.2,end=.8)+
+    facet_grid(rows=vars(MoBaAnalysis),cols=vars(Scale),drop=T,scales="free_y")+
+    scale_shape_manual(values = c("mQTL"=3,"vQTL"=4))+
+    geom_text_repel(
+      aes(label=Label),box.padding=1,max.overlaps=15,show.legend=F,direction="both",
+      size=2,position=position_jitter(seed=1),angle=0)+
+    theme(axis.text.x=element_blank(),strip.text=element_text(size=8))
+
+# ggsave(
+#   vPheWasPlot,
+#   file="Dropbox/Projects/Analyses/vPheWasPlot.png",
+#   device="png",width=2400,height=1200,units="px"
+#   )
+
+PheWasPlotly <- 
+  plotly::ggplotly(PheWasPlot,
+    tooltip=c("label1","label2","size","x","y")
+      # paste(
+      #   "MoBaTrait:",PheWasPlot$data$label1,"<br>",
+      #   "Age:",PheWasPlot$data$size,"<br>",
+      #   "PheWasTrait:",PheWasPlot$data$label2,"<br>",
+      #   "GwasP:",PheWasPlot$data$x,"<br>",
+      #   "PheWasP:",PheWasPlot$data$y
+      #   )
+      ) %>%
+  plotly::layout(showlegend = FALSE)
+
+iPheWasPlots<-list()
+for(i in seq_along(unique(PheWasTabs$Scale))){
+  iPheWasPlots[[i]]<-ggplot(PheWasTabs %>% filter(Scale==unique(PheWasTabs$Scale)[i]),
+      aes(y=-log10(PheWasP),x=Age,shape=MoBaAnalysis,size=-log10(GwasP),colour=Age,
+          label1=MoBaTrait,label2=PheWasTrait))+
+      geom_point(position=position_jitter(seed=1),show.legend=F)+
+      theme_minimal()+
+      scale_colour_viridis_d(begin=.2,end=.8)+
+      facet_grid(rows=vars(MoBaAnalysis),drop=T,scales="free_y")+
+      scale_shape_manual(values = c("mQTL"=3,"vQTL"=4))+
+      geom_text_repel(
+        aes(label=Label),box.padding=1,max.overlaps=15,show.legend=F,direction="both",
+        size=2,position=position_jitter(seed=1),angle=0)+
+      theme(axis.text.x=element_blank(),strip.text=element_text(size=8))
+}
+
+```
+
+# Phenome-wide association study associations, for all effectively independent (r<.1) SNPs with GWA and vGWA association p-values < 1x10-5 for A. mQTL (top panel) and B. vQTL (bottom panel).
+
+_Scatter plots display the -log10 GWA p-values from publicly available datasets (PheWasP; y-axis) and -log10 p-values from MoBa GWA and vGWA analyses (x-axis) of psychometrically measured behavioural outcomes and height and weight. The plot is stratified by Age of MoBa participants, with age increasing from left to right (x-strip; colour) and by the type of analysis (y-strip), with mGWA (+) in the top panel and vGWA (x) in the bottom panel. PheWas traits are labelled in hover over boxes (interactive version only)_
+
+```{r, fig.height=4,fig.width=8,warning=F}
+PheWasPlotly
+```
+
+
+
+# By scale: {.tabset .tabset-dropdown}
+
+```{r, results='asis',error=T,fig.keep='all',out.height='100%',out.width='100%'}
+for(i in seq_along(unique(PheWasTabs$Scale))){
+  cat("## ", paste0(unique(PheWasTabs$Scale)[i]), "\n")
+  cat("\n");print(iPheWasPlots[[i]]);cat("\n");cat("\n")
+}
+```
+
+# Phenome-wide association study associations
+
+```{r}
+PheWasTab
+```

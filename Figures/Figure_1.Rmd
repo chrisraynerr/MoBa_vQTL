@@ -1,0 +1,132 @@
+---
+title: "Figure 1"
+output: 
+  html_document:
+    toc: false
+    code_folding: hide
+mainfont: Helvetica
+---
+
+```{css Visuals, include = F, echo = F, eval = T} 
+
+.main-container {
+  max-width: 2000px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+pre {
+  max-height: 2000px !important;
+  overflow-y: auto !important;
+  overflow-x: scroll !important;
+}
+.nobullet li {
+  list-style-type: none;
+}
+.table {
+  max-width: 1600px;
+}
+.table.center {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+```
+
+```{r setup, include=F}
+
+knitr::opts_chunk$set(
+  eval=T,echo=F,include=T,message=F,warning=F,fig.width=12,
+  fig.height=6,fig.fullwidth=T,fig.align="center"
+)
+
+packages <- c(
+  "DT","tidyverse","polycor","colorspace","summarytools",
+  "arsenal","psych","data.table","dplyr","knitr"
+  )
+
+installed_packages <- packages %in% rownames(installed.packages())
+if (any(installed_packages == FALSE)) {
+  install.packages(packages[!installed_packages])
+}
+# Load all listed packages
+suppressPackageStartupMessages(invisible(lapply(packages, library, character.only = TRUE)))
+
+```
+
+```{r QQplots,echo=F,include=F,warnings=F,fig.width=8,fig.height=6,out.width='100%',error=T}
+
+excl <- c(
+  "IcqFull","CbclFull","EasFull","CfqFull","ItseaFull","ScqFull","SdqFull","CccFull",
+  "SprakFull","NhpicFull","RsdbdFull","PeqFull","SbFull","SclFull","SppaFull","CbclAdhd"
+)
+QqPlots <- list.files(path="~/Dropbox/Projects/MoBa_vQTL/Plots/QQ",pattern="QqPlot",full.names=T)
+QqPlots <- QqPlots[!grepl(paste(excl,collapse="|"),QqPlots)]
+
+PpPlots <- list.files(path="~/Dropbox/Projects/MoBa_vQTL/Plots/QQ",pattern="PpPlot",full.names=T)
+PpPlots <- PpPlots[!grepl(paste(excl,collapse="|"),PpPlots)]
+
+Names   <- str_remove_all(basename(QqPlots),"_QqPlot.png")
+Names   <- str_remove_all(Names,"Ch")
+Names   <- str_replace_all(Names,"Q04"," 6m")
+Names   <- str_replace_all(Names,"Q05"," 18m")
+Names   <- str_replace_all(Names,"Q06"," 3y")
+Names   <- str_replace_all(Names,"Q07"," 5y")
+Names   <- str_replace_all(Names,"Q09"," 8y")
+Names   <- str_replace_all(Names,"Q11C"," 14y_c")
+Names   <- str_replace_all(Names,"Q11M"," 14y_m")
+Names   <- str_replace_all(Names,"_hAdj","")
+Names   <- str_replace_all(Names,"mo","m")
+Names   <- str_replace_all(Names,"yo","y")
+Names   <- str_replace_all(Names,"0","")
+Names   <- str_replace_all(Names,"_"," ")
+Names   <- str_replace_all(Names,"([a-z])([A-Z])","\\1 \\2")
+
+
+QQ <- list()
+for(i in seq_along(QqPlots)){
+  QQ[[i]] <- cowplot::ggdraw() + cowplot::draw_image(paste0(QqPlots[[i]]))
+}
+
+PP <- list()
+for(i in seq_along(PpPlots)){
+  PP[[i]] <- cowplot::ggdraw() + cowplot::draw_image(paste0(PpPlots[[i]]))
+}
+
+QQPP <- list()
+for(i in seq_along(PpPlots)){
+  QQPP[[i]] <- cowplot::plot_grid(QQ[[i]],PP[[i]],ncol=2,rel_widths=c(.45,.55))
+}
+
+rm(PP);rm(QQ)
+
+```
+
+
+# Genome-wide SNP association p-values, plotted as quantile-quantile (left) and scatter plots (right) for vGWA and mGWA p-values {.tabset .tabset-dropdown}
+
+_Quantile-quantile plots (left) display the expected and observed -log10 p-values from GWA (+) and vGWA (x) and scatter plots (right) show the relationship between p-values for SNPs estimated from vGWA (quantile integrated rank scores) on the y-axis and GWA (factor scores) on the x-axis. Outcomes include psychometrically measured behavioural traits, and height and weight. _
+
+```{r, results='asis',error=T,fig.keep='all',out.height='100%',out.width='100%'}
+for(i in seq_along(QQPP)){
+  cat("## ", paste0(Names[[i]]), "\n")
+  cat("\n");print(QQPP[[i]]);cat("\n");cat("\n")
+}
+```
+
+_ICQ6, Infant Characteristics Questionnaire 6 Months Form; ASQ, Ages and Stages Questionnaires; EAS, Emotionality, Activity and Shyness Temperament Questionnaire; CBCL, Child Behaviour CheckList; AUTQ, Early Screening of Autistic Traits Questionnaire-Short (+Modified Checklist for Autism in Toddlers); ITSEA, Infant-Toddler Social and Emotional Assessment; CFQ, The Child Feeding Questionnaire; SDQ, Strength and Difficulties Questionnaire-Prosocial Subscale; SCQ, Social Communication Questionnaire; PPBS, Preschool Play Behaviour Scale; CPRSRS, Conners Parent Rating Scale - Revised, Short Form; CCC, Children’s Communication Checklist-2 Short: Coherence I; SPRAK, Statements about Language-Related Difficulties: Semantics; SLAS, Speech and Language Assessment Scale; CAST, Childhood Asperger Syndrome Test; RSDBD, Rating Scale for Disruptive Behaviour Disorders; CEBQ, Children’s Eating Behaviour Questionnaire; SCARED, Screen for Child Anxiety Related Disorders; SMFQ, Short Mood and Feelings Questionnaire; SPIN, Mini Social Phobia Inventory; NHPIC30, Short Norwegian Hierarchical Personality Inventory for Children; PEQ, Parental Environment Questionnaire; YPTI, Youth Psychopathic Traits; CAPE15, Community Assessment of Psychic Experiences; SCL, The (Hopkins) Symptoms Checklist; DES, Differential Emotional Scale; RSES, Rosenberg Self-Esteem Scale; SWLS, Satisfaction with life scale; IPIP, International Personality Item Pool; SFS, School Functioning Scale; SPPA, Self-Perception Profile for Adolescents; SB, School belonging_
+
+# {.tabset .tabset-dropdown}
+
+```{r, results='asis',error=T,fig.keep='all',out.height='100%',out.width='100%',eval=F}
+for(i in seq_along(QQPP)){
+  cat("## ", paste0(Names[[i]]), "\n")
+  cat("\n");print(QQPP[[i]]);cat("\n");cat("\n")
+}
+```
+
+# 
+
+```{r}
+```
+
+

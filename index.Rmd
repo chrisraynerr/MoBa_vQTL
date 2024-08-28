@@ -1,0 +1,73 @@
+---
+title: "Variance quantitative trait loci mapping in the MoBa cohort: detecting interaction effects involved in childhood behavioural traits"
+output: 
+  html_document:
+mainfont: Helvetica
+    
+---
+
+```{css, include=F,echo=F,eval=T} 
+
+.main-container {
+  max-width: 2000px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+pre {
+  max-height: 2000px !important;
+  overflow-y: auto !important;
+  overflow-x: scroll !important;
+}
+.nobullet li {
+  list-style-type: none;
+}
+.table {
+  max-width: 1600px;
+}
+.table.center {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+```
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo=F)
+library(dplyr);library(data.table);library(DT)
+```
+\
+\
+*Supplement to Rayner et al 2024*
+\
+\
+[**GWAS summary statistics**](https://chrisraynerr.github.io/MoBa_vQTL/Results/MoBa_vGwaSumStats.zip)
+**Psychometric outcomes measured in MoBa children**
+\
+\
+```{r Load data and create summary table,warnings=F}
+tab <- data.table::fread("Results/Psy_outcomes.csv") %>%
+  dplyr::mutate(
+    Pheno = paste0("<a href='https://chrisraynerr.github.io/MoBa_vQTL/Reports/Ch",Scale,"_xIRTQrs.html'>Report</a>"),
+    GWAS  = paste0("<a href='https://chrisraynerr.github.io/MoBa_vQTL/Reports/Ch",Scale,"_GWA.html'>Report</a>")
+  )
+
+datatable(
+  tab,escape=F,
+  filter='bottom',extensions='Buttons',rownames=F,
+  options=list(
+    dom='lfrtiBp',
+    buttons=c('csv'),
+    searching=F,
+    pageLength=10,
+    lengthMenu=list(c(10,-1),c('10','All')),
+    scrollX = T,
+    columnDefs=list(list(className='dt-left',targets="_all"))
+    ))
+
+```
+
+_ICQ6, Infant Characteristics Questionnaire 6 Months Form; ASQ, Ages and Stages Questionnaires; EAS, Emotionality, Activity and Shyness Temperament Questionnaire; CBCL, Child Behaviour CheckList; AUTQ, Early Screening of Autistic Traits Questionnaire-Short (+Modified Checklist for Autism in Toddlers); ITSEA, Infant-Toddler Social and Emotional Assessment; CFQ, The Child Feeding Questionnaire; SDQ, Strength and Difficulties Questionnaire-Prosocial Subscale; SCQ, Social Communication Questionnaire; PPBS, Preschool Play Behaviour Scale; CPRSRS, Conners Parent Rating Scale - Revised, Short Form; CCC, Children’s Communication Checklist-2 Short: Coherence I; SPRAK, Statements about Language-Related Difficulties: Semantics; SLAS, Speech and Language Assessment Scale; CAST, Childhood Asperger Syndrome Test; RSDBD, Rating Scale for Disruptive Behaviour Disorders; CEBQ, Children’s Eating Behaviour Questionnaire; SCARED, Screen for Child Anxiety Related Disorders; SMFQ, Short Mood and Feelings Questionnaire; SPIN, Mini Social Phobia Inventory; NHPIC30, Short Norwegian Hierarchical Personality Inventory for Children; PEQ, Parental Environment Questionnaire; YPTI, Youth Psychopathic Traits; CAPE15, Community Assessment of Psychic Experiences; SCL, The (Hopkins) Symptoms Checklist; DES, Differential Emotional Scale; RSES, Rosenberg Self-Esteem Scale; SWLS, Satisfaction with life scale; IPIP, International Personality Item Pool; SFS, School Functioning Scale; SPPA, Self-Perception Profile for Adolescents; SB, School belonging_
+
+
+
+

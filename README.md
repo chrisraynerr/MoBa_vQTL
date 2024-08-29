@@ -23,13 +23,23 @@ Social, Genetic and Behavioural Psychiatry Centre, Institute of Psychiatry, Psyc
 [Phenotype analysis reports](https://chrisraynerr.github.io/MoBa_vQTL/)<br/>
 [Genomic analysis reports](https://chrisraynerr.github.io/MoBa_vQTL/)<br/>
 
-[STable 1. Psychometric scales](https://docs.google.com/spreadsheets/d/1pzoArMoqetPyMs28hK8iIV7Qd9GW5GNEC3S9cDWNd2Y/edit?usp=sharing)<br/>
-[STable 2. Psychometric analyses](https://docs.google.com/spreadsheets/d/1hvMk2XoGficNNuqrtGMg9z8zEyUD4F9I2N2JKzgXLgQ/edit?usp=sharing)<br/>
+[STable 1.  Psychometric scales](https://docs.google.com/spreadsheets/d/1pzoArMoqetPyMs28hK8iIV7Qd9GW5GNEC3S9cDWNd2Y/edit?usp=sharing)<br/>
+[STable 1B. Psychometric scales in TEDS](https://docs.google.com/spreadsheets/d/1pzoArMoqetPyMs28hK8iIV7Qd9GW5GNEC3S9cDWNd2Y/edit?usp=sharing)<br/>
+
+[STable 2.  Psychometric analyses](https://docs.google.com/spreadsheets/d/1hvMk2XoGficNNuqrtGMg9z8zEyUD4F9I2N2JKzgXLgQ/edit?usp=sharing)<br/>
+[STable 2B. Psychometric analyses in TEDS](https://docs.google.com/spreadsheets/d/1hvMk2XoGficNNuqrtGMg9z8zEyUD4F9I2N2JKzgXLgQ/edit?usp=sharing)<br/>
+[STable 2B. Psychometric analyses in TEDS](https://docs.google.com/spreadsheets/d/1qCsagD5hF2NYC1Z9O3GKfu8cQ0GI3h7e4a7wIIfKPTI/edit?usp=sharing)<br/>
+
 [STable 3. Phenotypic correlations](https://docs.google.com/spreadsheets/d/1xCdN2zU-sC1b-kB8WYE5wqUdGvmvwiUzLVvKUUTTHC4/edit?usp=sharing)<br/>
 [STable 4. Genome-wide associations](https://docs.google.com/spreadsheets/d/1NJnY2FnN_RysJIsBEOvwax8sIw7PtvyHln2UcUVs5Mo/edit?usp=sharing)<br/>
 [STable 5. Phenome-wide associations](https://docs.google.com/spreadsheets/d/1URLbHZHz4sdZ8GYRIu446-cX13ZxXT3hTq8O4rJAOK4/edit?usp=sharing)<br/>
 [STable 6. Heritability](https://docs.google.com/spreadsheets/d/1klE_rDljGkV00XSQY84x3X1guuq7bZQZAEJ5kdkFUB4/edit?usp=sharing)<br/>
 [STable 7. Genetic correlations](https://docs.google.com/spreadsheets/d/1ULuRyIx8FvSn8aWGAHz0fTXPiyFwAKf8Z4q4KlPoFXQ/edit?usp=sharing)<br/>
+[STable 8. vPGS associations](https://docs.google.com/spreadsheets/d/1RBh19WczsBY-kAC64XuZrFbJkgLGAbmoYYrAAwPOe_8/edit?usp=sharing)<br/>
+
+[SFigure 1. vQTL visualisation](https://chrisraynerr.github.io/MoBa_vQTL/SFigures/SFigure_1.html)<br/>
+[SFigure 2. Phenotypic correlations](https://chrisraynerr.github.io/MoBa_vQTL/SFigures/SFigure_2.html)<br/>
+[SFigure 3. Heritability](https://chrisraynerr.github.io/MoBa_vQTL/SFigures/SFigure_3.html)<br/>
 
 ## Abstract
 

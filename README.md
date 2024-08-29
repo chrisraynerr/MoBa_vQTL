@@ -10,7 +10,8 @@ Social, Genetic and Behavioural Psychiatry Centre, Institute of Psychiatry, Psyc
 
 ## Tables
 
-[Table 1. Sample characteristics](https://docs.google.com/spreadsheets/d/1rKJsi44ZyQpAyI5XgfLQDeozqfmFxfaJ1pY3NUekRf0/edit?usp=sharing)
+[Table 1A. MoBa Sample characteristics](https://docs.google.com/spreadsheets/d/1rKJsi44ZyQpAyI5XgfLQDeozqfmFxfaJ1pY3NUekRf0/edit?usp=sharing)<br/>
+[Table 1B. TEDS sample characteristics](https://docs.google.com/spreadsheets/d/1LumT9P-RRK035oa_Uf2nMQmvRnduwbTujrOlMXW3jS0/edit?usp=sharing)<br/>
 
 ## Figures
 
@@ -23,11 +24,10 @@ Social, Genetic and Behavioural Psychiatry Centre, Institute of Psychiatry, Psyc
 [Phenotype analysis reports](https://chrisraynerr.github.io/MoBa_vQTL/)<br/>
 [Genomic analysis reports](https://chrisraynerr.github.io/MoBa_vQTL/)<br/>
 
-[STable 1.  Psychometric scales](https://docs.google.com/spreadsheets/d/1pzoArMoqetPyMs28hK8iIV7Qd9GW5GNEC3S9cDWNd2Y/edit?usp=sharing)<br/>
+[STable 1A. Psychometric scales](https://docs.google.com/spreadsheets/d/1pzoArMoqetPyMs28hK8iIV7Qd9GW5GNEC3S9cDWNd2Y/edit?usp=sharing)<br/>
 [STable 1B. Psychometric scales in TEDS](https://docs.google.com/spreadsheets/d/1pzoArMoqetPyMs28hK8iIV7Qd9GW5GNEC3S9cDWNd2Y/edit?usp=sharing)<br/>
 
-[STable 2.  Psychometric analyses](https://docs.google.com/spreadsheets/d/1hvMk2XoGficNNuqrtGMg9z8zEyUD4F9I2N2JKzgXLgQ/edit?usp=sharing)<br/>
-[STable 2B. Psychometric analyses in TEDS](https://docs.google.com/spreadsheets/d/1hvMk2XoGficNNuqrtGMg9z8zEyUD4F9I2N2JKzgXLgQ/edit?usp=sharing)<br/>
+[STable 2A. Psychometric analyses in MoBa](https://docs.google.com/spreadsheets/d/1hvMk2XoGficNNuqrtGMg9z8zEyUD4F9I2N2JKzgXLgQ/edit?usp=sharing)<br/>
 [STable 2B. Psychometric analyses in TEDS](https://docs.google.com/spreadsheets/d/1qCsagD5hF2NYC1Z9O3GKfu8cQ0GI3h7e4a7wIIfKPTI/edit?usp=sharing)<br/>
 
 [STable 3. Phenotypic correlations](https://docs.google.com/spreadsheets/d/1xCdN2zU-sC1b-kB8WYE5wqUdGvmvwiUzLVvKUUTTHC4/edit?usp=sharing)<br/>

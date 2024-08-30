@@ -42,6 +42,7 @@ Social, Genetic and Behavioural Psychiatry Centre, Institute of Psychiatry, Psyc
 [SFigure 1. vQTL visualisation](https://chrisraynerr.github.io/MoBa_vQTL/SFigures/SFigure_1.pdf)<br/>
 [SFigure 2. Phenotypic correlations](https://chrisraynerr.github.io/MoBa_vQTL/SFigures/SFigure_2.html)<br/>
 [SFigure 3. Genetic correlations](https://chrisraynerr.github.io/MoBa_vQTL/SFigures/SFigure_3.html)<br/>
+[SFigure 4. vPGS associations](https://chrisraynerr.github.io/MoBa_vQTL/SFigures/SFigure_4.html)<br/>
 
 ## Abstract
 

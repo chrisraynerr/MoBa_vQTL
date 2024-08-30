@@ -25,7 +25,7 @@ Social, Genetic and Behavioural Psychiatry Centre, Institute of Psychiatry, Psyc
 [Genomic analysis reports](https://chrisraynerr.github.io/MoBa_vQTL/)<br/>
 
 [STable 1A. Psychometric scales](https://docs.google.com/spreadsheets/d/1pzoArMoqetPyMs28hK8iIV7Qd9GW5GNEC3S9cDWNd2Y/edit?usp=sharing)<br/>
-[STable 1B. Psychometric scales in TEDS](https://docs.google.com/spreadsheets/d/1pzoArMoqetPyMs28hK8iIV7Qd9GW5GNEC3S9cDWNd2Y/edit?usp=sharing)<br/>
+[STable 1B. Psychometric scales in TEDS](https://docs.google.com/spreadsheets/d/1xppBdB5jeCS3LsoeBL2mv6nEGMQF0TN4RkhU35ZJMf8/edit?usp=sharing)<br/>
 
 [STable 2A. Psychometric analyses in MoBa](https://docs.google.com/spreadsheets/d/1hvMk2XoGficNNuqrtGMg9z8zEyUD4F9I2N2JKzgXLgQ/edit?usp=sharing)<br/>
 [STable 2B. Psychometric analyses in TEDS](https://docs.google.com/spreadsheets/d/1qCsagD5hF2NYC1Z9O3GKfu8cQ0GI3h7e4a7wIIfKPTI/edit?usp=sharing)<br/>
@@ -39,7 +39,7 @@ Social, Genetic and Behavioural Psychiatry Centre, Institute of Psychiatry, Psyc
 
 [SFigure 1. vQTL visualisation](https://chrisraynerr.github.io/MoBa_vQTL/SFigures/SFigure_1.html)<br/>
 [SFigure 2. Phenotypic correlations](https://chrisraynerr.github.io/MoBa_vQTL/SFigures/SFigure_2.html)<br/>
-[SFigure 3. Heritability](https://chrisraynerr.github.io/MoBa_vQTL/SFigures/SFigure_3.html)<br/>
+[SFigure 3. Genetic correlations](https://chrisraynerr.github.io/MoBa_vQTL/SFigures/SFigure_3.html)<br/>
 
 ## Abstract
 

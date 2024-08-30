@@ -1,0 +1,116 @@
+---
+title: "S.Figure 4"
+output: 
+  html_document:
+    toc: false
+    code_folding: hide
+mainfont: Helvetica
+---
+
+```{css Visuals, include = F, echo = F, eval = T} 
+
+.main-container {
+  max-width: 2000px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+pre {
+  max-height: 2000px !important;
+  overflow-y: auto !important;
+  overflow-x: scroll !important;
+}
+.nobullet li {
+  list-style-type: none;
+}
+.table {
+  max-width: 1600px;
+}
+.table.center {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+```
+
+```{r setup, include=F}
+
+knitr::opts_chunk$set(
+  eval=T,echo=F,include=T,message=F,warning=F,fig.width=12,
+  fig.height=10,fig.fullwidth=T,fig.align="center"
+)
+
+packages <- c(
+  "DT","tidyverse","polycor","colorspace","summarytools",
+  "arsenal","psych","data.table","dplyr","knitr"
+  )
+
+installed_packages <- packages %in% rownames(installed.packages())
+if (any(installed_packages == FALSE)) {
+  install.packages(packages[!installed_packages])
+}
+# Load all listed packages
+suppressPackageStartupMessages(invisible(lapply(packages, library, character.only = TRUE)))
+
+```
+
+```{r read results table,echo=F,include=F,warnings=F,fig.width=8,fig.height=6,out.width='100%',error=T}
+
+Res <- read.csv("../Results/vPGS_associations.csv") %>% 
+  mutate(Age=factor(Age)) %>% 
+  mutate(Effect=factor(Effect,levels=c("Main","Age","Sex","Home","Ses"))) %>%
+  mutate(VarOrGxE=factor(VarOrGxE,levels=c("Var","GxE")))%>% 
+  mutate(Model=factor(Model,levels=c("z2","mz","ss","os")))
+  
+```
+
+# Associations between variance-based polygenic scores (vPGS) and phenotypic variabilty measured in unrelated indiviuals using squared z-scores, and in twin pairs via sibling-differences. 
+
+\newline
+
+```{r,fig.keep='all',out.height='100%',out.width='100%'}
+MainPlot <- 
+  ggplot(
+    Res %>% filter(!((Model=="os"|Model=="ss")&vPGS!="MvPGS")) %>% filter(Rater=="P"),
+    aes(x=Age,y=BETA,colour=Model,shape=Effect,alpha=-log10(P))) +
+  geom_hline(yintercept=0,colour="yellow",linetype=2)+
+  geom_point(position=position_dodge(0.9),size=6) +
+  geom_errorbar(aes(ymin=as.numeric(BETA-(1.96*SE)),ymax=as.numeric(BETA+(1.96*SE))),width=.5,position=position_dodge(0.9))+
+  facet_grid(VarOrGxE~Outcome,drop=T,scales ="free_x",space="free_x")+
+  theme_bw() +
+  theme(
+    axis.text=element_text(size=12),axis.title=element_text(size=14),# axis.text.x=element_text(angle=45),
+    legend.position="bottom",legend.box ="vertical",legend.justification="left",legend.box.just ="left",
+    legend.margin=margin(t=0,unit='mm'),legend.spacing=unit(0,'mm'),legend.box.margin=margin(t=0,unit='mm'),
+    #plot.margin=margin(t=1,unit='mm'),
+    legend.title=element_text(size=14,face="bold"),legend.text=element_text(size=14),
+    strip.text=element_text(size=14,color="white"),strip.background=element_rect(fill="#414487FF")
+  )+
+  labs(y="Beta (95% CI)",x="Age") +
+  scale_colour_viridis_d(begin=.2,end=.8,label=c(bquote(unrel-Z^"2"),"MZ-diff","ssDZ-diff","osDZ-diff"))+
+  scale_shape_manual("vPGS effect",values=c(15,3,4,8,9),label=c("Main","xAge","xSex","xHomeEnv","xSES"))+
+  guides(colour=guide_legend(order=1),shape=guide_legend(order=2),alpha=guide_legend(order=3))
+
+MainPlot
+```
+\newline
+
+_**Models**: **Z<sup>2</sup>**, squared z-scores regressed on vPGS using a linear model in a sample of unrelated individuals; **MZ-diff**, twin level phenotypic variability computed as the standard deviation (SD) for the twins phenotypic values, regressed on vPGS (identical for MZ twins; twin pair is the unit of analysis); **DZ-diff**, twin level phenotypic-SD values regressed on vPGS-SD values and the mean-vPGS value (vPGS vary in DZ twins; twin pair is the unit of analysis; estimated in same-sex pairs [ss] and opposite-sex pairs separately). vPGS were computed in TEDS participants, using GWA weights estimated from analyses of MoBa participants. LDpred2-auto was used to re-weight marginal SNP effects estimated from GWA, by integrating information from the SNP LD matrix, as well as the heritability and polygenicity of each trait. **Communication**: CCC, Children’s Communication Checklist (Ages 2 - 4); CDI, MacArthur Communicative Development Inventory (Age 9); **Depression**: SMFQ, Short Mood and Feelings Questionnaire; **Hyperactivity & Inattention:** CPRSRS, Conners Parent Rating Scale; **Weight:** residualised for the linear and quadratic effects of height_
+
+\newline
+\newline
+\newline
+
+## Table of associations: 
+```{r View table, warnings=F,out.height='100%',out.width='100%'}
+
+datatable(
+  Res %>% filter(!((Model=="os"|Model=="ss")&vPGS!="MvPGS")) %>% filter(Rater=="P")%>%
+    select(Outcome,Scale,Age,vPGS,Model,BETA,SE,Z,P,N) %>% 
+    mutate(P=formatC(P,digits=2)),
+  filter='bottom',extensions='Buttons',rownames=F,
+  options=list(
+    dom='lfrtiBp',buttons=c('csv'),
+    searching=F,pageLength=10,lengthMenu=list(c(10,-1),c('10','All')),scrollX = T,
+    columnDefs=list(list(className='dt-left',targets="_all"))
+    ))
+```

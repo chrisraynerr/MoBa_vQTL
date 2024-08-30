@@ -21,8 +21,10 @@ Social, Genetic and Behavioural Psychiatry Centre, Institute of Psychiatry, Psyc
 
 ## Supplements
 
-[Phenotype analysis reports](https://chrisraynerr.github.io/MoBa_vQTL/)<br/>
-[Genomic analysis reports](https://chrisraynerr.github.io/MoBa_vQTL/)<br/>
+[Overview of phenotypes](https://chrisraynerr.github.io/MoBa_vQTL/Reports/Overview_ChPsy.html)<br/>
+[Overview of genomic analyses](https://chrisraynerr.github.io/MoBa_vQTL/Reports/Overview_ChPsyGen.html)<br/>
+
+[Scale-level reports (phenotypic and genomic)](https://chrisraynerr.github.io/MoBa_vQTL/)<br/>
 
 [STable 1A. Psychometric scales](https://docs.google.com/spreadsheets/d/1pzoArMoqetPyMs28hK8iIV7Qd9GW5GNEC3S9cDWNd2Y/edit?usp=sharing)<br/>
 [STable 1B. Psychometric scales in TEDS](https://docs.google.com/spreadsheets/d/1xppBdB5jeCS3LsoeBL2mv6nEGMQF0TN4RkhU35ZJMf8/edit?usp=sharing)<br/>
@@ -37,7 +39,7 @@ Social, Genetic and Behavioural Psychiatry Centre, Institute of Psychiatry, Psyc
 [STable 7. Genetic correlations](https://docs.google.com/spreadsheets/d/1ULuRyIx8FvSn8aWGAHz0fTXPiyFwAKf8Z4q4KlPoFXQ/edit?usp=sharing)<br/>
 [STable 8. vPGS associations](https://docs.google.com/spreadsheets/d/1RBh19WczsBY-kAC64XuZrFbJkgLGAbmoYYrAAwPOe_8/edit?usp=sharing)<br/>
 
-[SFigure 1. vQTL visualisation](https://chrisraynerr.github.io/MoBa_vQTL/SFigures/SFigure_1.html)<br/>
+[SFigure 1. vQTL visualisation](https://chrisraynerr.github.io/MoBa_vQTL/SFigures/SFigure_1.pdf)<br/>
 [SFigure 2. Phenotypic correlations](https://chrisraynerr.github.io/MoBa_vQTL/SFigures/SFigure_2.html)<br/>
 [SFigure 3. Genetic correlations](https://chrisraynerr.github.io/MoBa_vQTL/SFigures/SFigure_3.html)<br/>
 

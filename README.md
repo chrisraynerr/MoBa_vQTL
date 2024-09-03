@@ -2,11 +2,14 @@
 
 ## Authors
 
-Christopher Rayner, Yasmin Ahmadzadeh, Ziada Ayorech, Isabella Badini, Rosa Cheesman, Laurie J. Hannigan, Ralph PO Porneso, Eivind Ystrom, Tom A. McAdams
+Christopher Rayner, Yasmin Ahmadzadeh, Ziada Ayorech, Isabella Badini, Rosa Cheesman, Eivind Ystrom, Tom A. McAdams
 
 ## Affiliations
 
 Social, Genetic and Behavioural Psychiatry Centre, Institute of Psychiatry, Psychology and Neuroscience, King's College London, London, UK; PROMENTA Research Center, Department of Psychology, University of Oslo, Oslo, Norway; Centre for Genetic Epidemiology and Mental Health, Norwegian Institute of Public Health, Oslo, Norway
+
+## Pre-print
+https://doi.org/10.31219/osf.io/7cs8n
 
 ## Tables
 

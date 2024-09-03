@@ -1,4 +1,4 @@
-# Detecting Potential Gene-Environment Interaction Effects Involved in Behavioural Traits Across Childhood: Variance Quantitative Trait Loci Mapping in the MoBa Cohort
+# A variance quantitative trait loci map of childhood behaviour: searching for gene-environment interactions in the MoBa cohort
 
 ## Authors
 
